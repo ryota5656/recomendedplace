@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  userid: MyString
+  name: MyString
+  latitude: 1.5
+  longitude: 1.5
+  address: MyString
+  pricelevel: 1.5
+  rating: 1.5
+
+two:
+  userid: MyString
+  name: MyString
+  latitude: 1.5
+  longitude: 1.5
+  address: MyString
+  pricelevel: 1.5
+  rating: 1.5
