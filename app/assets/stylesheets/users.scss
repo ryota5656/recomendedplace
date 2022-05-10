@@ -1,0 +1,32 @@
+// Place all the styles related to the Users controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.profile_box{
+  height: 600px;
+  max-width:800px;
+  margin: 100px auto;
+  background-color:#Fff;
+  border: 3px solid #eaedef;
+  border-radius: 30px;
+}
+.profile_element{
+  padding:30px;
+  margin:0px 20px;
+  border-bottom:2px solid #eaedef;
+}
+.profile_element span{
+  font-weight:bold;
+}
+
+.profile_image{
+  max-width:150px;
+  margin: 0px auto;
+}
+.profile_image img {
+border-radius: 50%;
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+
+}

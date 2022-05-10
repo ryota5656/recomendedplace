@@ -1,0 +1,123 @@
+<%= stylesheet_link_tag 'my_places' %>
+<!--アイコンの表示-->
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" />
+<!--myplaces.jsに@places_countを渡す-->
+<input type="hidden" id="places_count" value="<%= @places_count %>">
+<p><h5>　</h5></p>
+<p><h5>　</h5></p>
+
+<div class="container">
+  <div class="row">
+    <nav class="navbar navbar-expand navbar-dark bg-info fixed-top navbar-font">
+      <div class="col-lg-6  d-flex">
+        <%= link_to 'HOME', places_home_path, class: 'navbar-brand', data: {"turbolinks" => false} %>
+        <ul class="navbar-nav ">
+          <li class="nav-item"><%= link_to '行くとこ', my_places_todo_path, class: 'nav-link', data: {"turbolinks" => false}  %></li>
+          <li class="nav-item"><%= link_to '行った', my_places_completes_path, class: 'nav-link' %></li>
+        </ul>
+        <ul class="navbar-nav">
+          <li class="nav-item active"><%= link_to 'お気に入り', my_places_favorites_path, class: 'nav-link' %></li>
+        </ul>
+      </div>
+      <div class="col-lg-6 text-right">
+        <div class="row">
+          <div class="col-lg-8"></div>
+          <div class="col-lg-4 text-center">
+            <button class="btn rounded-circle p-0 " type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <div class="header_profile_image">
+                <!--アイコン表示-->
+                <% if current_user.image? %>
+                  <%=  image_tag current_user.image.url%>
+                <% else  %>
+                  <%= image_tag "default.png"%>
+                <%end%>
+              </div>
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <p class="dropdown-item mt-3"><%= link_to 'マイページ', user_path(id: current_user.id),class: 'dropdown-item'%></p>
+              <p class="dropdown-item"><%= link_to 'ログアウト',destroy_user_session_path,class: 'dropdown-item',method: :delete%></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </div>
+</div>
+
+<% @favorites.each_with_index do |comp,i| %>
+<% if comp.place.completes.first.nil?%>
+ <%else%>
+  <div class="container padding">
+    <div class="row m-4 p-3 todo-list">
+      <div class="col-lg-6">
+        <div id="todo-maps<%=i%>" date-lat="<%=comp.place.latitude%>" date-lng="<%=comp.place.longitude%>" style='width: 100%; height: 300px;'></div>
+      </div>
+      <div class="col-lg-6">
+        <table>
+        <tr>
+          <th nowrap>名　　前：</th>
+          <td><%= comp.place.name %></td>
+        </tr>
+        <tr>
+          <th>住　　所：</th>
+          <td><%= comp.place.address %></td>
+        </tr>
+        <tr>
+          <th>コメント：</th>
+          <td><%= comp.place.completes.first.comment%></td>
+        </tr>
+        <tr>
+          <th>評　　価：</th>
+          <td><%=  comp.place.completes.first.rate %></td>
+        </tr>
+        </table>
+        <span style="position:absolute;bottom:0">
+        <div class="form-btn">
+          <% if current_user.checkfav?(comp.place) %>
+            <%= form_with(url: create_favorite_path(id: comp.place.id), local: true, method: :delete) do |f| %>
+              <%= hidden_field_tag :place_id, comp.place.id %>
+              <%= f.submit '登録解除', class: 'btn btn-danger lift-btn' %>
+            <% end %>
+          <% else %>
+            <%= form_with(url: create_favorite_path(id: comp.place.id), local: true) do |f| %>
+              <%= hidden_field_tag :place_id, comp.place.id  %>
+              <%= f.submit 'お気に入り登録', class: 'btn btn-primary custom-btn' %>
+            <% end %>
+          <% end %>
+          <td><%= link_to "編集", edit_my_place_path(comp.place.completes.first.id),class:" btn btn-primary mx-3 custom-btn" %></td>
+        </div>
+        </span>
+          </div>
+          </div>
+
+      </div>
+    </div>
+  </div>
+
+  <% end %>
+
+
+<% end %>
+
+
+<script>
+function initMap(){
+  <% @favorites.each_with_index do |comp,i| %>
+    <% unless current_user.checkcomp(comp) %>
+      //Idの数だけマップを出力
+        var latlng = new google.maps.LatLng(<%=comp.place.latitude%>,<%=comp.place.longitude%>);
+
+        map = new google.maps.Map(document.getElementById('todo-maps<%=i%>'),{
+          center: {lat: <%=comp.place.latitude%>, lng: <%=comp.place.longitude%>},
+          zoom: 18
+        });
+        marker = new google.maps.Marker({
+          position: latlng,
+          map: map
+        });
+    <%end%>
+  <%end%>
+}
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDy1b5ruTTBKO9kBVwvdK-kilOYFB9XHdM&callback=initMap" async defer></script>

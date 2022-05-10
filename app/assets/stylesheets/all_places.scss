@@ -1,0 +1,61 @@
+// Place all the styles related to the all_places controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.container-fluid {
+  margin-right: auto;
+  margin-left: auto;
+  max-width: 85%;
+  }
+
+  .button-search{
+    position: relative;
+     margin:5px;
+  }
+
+  .button-tokyo{
+    background: url("https://presite-potepancamp-rails-02.herokuapp.com/assets/img_tokyo.jpg");
+    background-position: center;
+    background-size: cover;
+    width:100%;
+    height: 500px;
+    border-width: 0ch;
+  }
+
+  .button-kyoto{
+    background: url("https://presite-potepancamp-rails-02.herokuapp.com/assets/img_kyoto.jpg");
+    background-position: center;
+    background-size: cover;
+    width:100%;
+    height: 500px;
+    border-width: 0ch;
+  }
+
+  .button-osaka{
+    background: url("https://presite-potepancamp-rails-02.herokuapp.com/assets/img_osaka.jpg");
+    background-position: center;
+    background-size: cover;
+    width:100%;
+    height: 500px;
+    border-width: 0ch;
+  }
+
+  .button-sapporo{
+    background: url("https://presite-potepancamp-rails-02.herokuapp.com/assets/img_sapporo.jpg");
+    background-position: center;
+    background-size: cover;
+    width:100%;
+    height: 500px;
+    border-width: 0ch;
+  }
+
+  .search-title{
+    color:rgb(66, 66, 66);
+    position: absolute;
+    text-align: center;
+    font-size: 40px;
+    font-weight: bold;
+    right: 0;
+    left: 0;
+    bottom: 85%;
+  }

@@ -10,18 +10,58 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_16_083741) do
+ActiveRecord::Schema.define(version: 2022_04_08_093449) do
+
+  create_table "completes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "place_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.float "rate"
+    t.string "comment"
+    t.index ["place_id"], name: "index_completes_on_place_id"
+    t.index ["user_id"], name: "index_completes_on_user_id"
+  end
+
+  create_table "favorites", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "place_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["place_id"], name: "index_favorites_on_place_id"
+    t.index ["user_id"], name: "index_favorites_on_user_id"
+  end
 
   create_table "places", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "user_id"
     t.string "name"
-    t.float "latitude"
-    t.float "longitude"
+    t.decimal "latitude", precision: 11, scale: 8
+    t.decimal "longitude", precision: 11, scale: 8
     t.string "address"
     t.float "price_level"
     t.float "rating"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "place_id"
   end
 
+  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "name"
+    t.string "profile"
+    t.string "image"
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
+  add_foreign_key "completes", "places"
+  add_foreign_key "completes", "users"
+  add_foreign_key "favorites", "places"
+  add_foreign_key "favorites", "users"
 end

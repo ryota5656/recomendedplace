@@ -1,0 +1,54 @@
+<h1>　</h1>
+<%= render 'places/title' %>
+
+<%= stylesheet_link_tag 'users' %>
+
+<div class="container">
+  <nav class="navbar navbar-expand navbar-dark bg-info fixed-top navbar-font">
+    <%= link_to 'HOME', places_home_path, class: 'navbar-brand', data: {"turbolinks" => false} %>
+    <ul class="navbar-nav ">
+      <li class="nav-item"><%= link_to '行くとこ', my_places_todo_path, class: 'nav-link', data: {"turbolinks" => false}  %></li>
+      <li class="nav-item active"><%= link_to '行った', my_places_completes_path, class: 'nav-link' %></li>
+    </ul>
+    <ul class="navbar-nav">
+      <li class="nav-item"><%= link_to 'お気に入り', my_places_favorites_path, class: 'nav-link' %></li>
+    </ul>
+  </nav>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8 mx-auto">
+      <div class="profile_box">
+        <div class="profile_image mt-5 ">
+          <% if @user.image? %>
+          <%= image_tag @user.image.url%>
+          <% end %>
+        </div>
+        <div class="profile_element text-center h3">
+          <p><%= @user.name %></p>
+        </div>
+        <div class="profile_element">
+          <table width = "100%">
+            <tr>
+              <th width="30%">メールアドレス</th>
+              <td width="100%"><%= @user.email %></td>
+            </tr>
+          </table>
+        </div>
+        <div class="profile_element">
+          <table width = "100%">
+            <tr>
+              <th width="30%">自己紹介</th>
+              <td width="100%"><%= @user.profile %></td>
+            </tr>
+          </table>
+        </div>
+        <% if @user.id != current_user.id%>
+        <% else %>
+          <p class="text-center"><%= link_to "　編　集　", edit_user_registration_path(@user.id), class: 'btn btn-primary mt-3' %></p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

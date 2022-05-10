@@ -63,3 +63,12 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'aws-sdk-s3'
 gem 'dotenv-rails'
 gem 'google_places'
+gem 'gmaps4rails'
+gem "jquery-rails"
+gem 'pry-rails'
+gem 'devise'
+gem 'devise-i18n'
+gem 'bootstrap', '~> 4.3.1'
+gem 'devise-bootstrap-views'
+gem 'carrierwave'
+gem 'fog-aws'
