@@ -37,6 +37,10 @@ class MyPlacesController < ApplicationController
       end
   end
 
+  def destroy
+
+  end
+
   def edit
     @place = Complete.find(params[:id])
     session[:previous_url] = request.referer
