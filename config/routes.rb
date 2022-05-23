@@ -6,7 +6,6 @@ Rails.application.routes.draw do
     get 'home'
     get '/',                        to: 'places#index'
   end
-  post 'places/:id' => 'places#create'
   resources :places, :only => [ :index, :create, :destroy ,:home]
   # 記事詳細表示のルーティングにネスト
   resources :places, expect: [:index] do
