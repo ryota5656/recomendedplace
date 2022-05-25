@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   namespace :places do
     # get 'place/list' request
     get 'home'
+    post 'home'
   end
   get 'places', to: 'places#home'
   resources :places, :only => [:home , :create, :destroy]
