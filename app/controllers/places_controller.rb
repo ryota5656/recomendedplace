@@ -35,7 +35,7 @@ class PlacesController < ApplicationController
       if @place.save
         format.html { redirect_to my_places_todo_path, notice: "#{@place.name} の位置情報を保存しました" }
       else
-        format.html { render :index, notice: "#{@place.name} の位置情報を保存できませんでした" }
+        format.html { render :home, notice: "#{@place.name} の位置情報を保存できませんでした" }
       end
     end
   end

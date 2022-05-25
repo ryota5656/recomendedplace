@@ -1,11 +1,13 @@
 Rails.application.routes.draw do
-
- #place
+#root
+  root :to => 'places#home'
+#place
   namespace :places do
     # get 'place/list' request
     get 'home'
   end
-  resources :places
+  get 'places', to: 'places#home'
+  resources :places, :only => [:home , :create, :destroy]
   # 記事詳細表示のルーティングにネスト
 
 
