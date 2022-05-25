@@ -4,13 +4,10 @@ Rails.application.routes.draw do
   namespace :places do
     # get 'place/list' request
     get 'home'
-    get '/',                        to: 'places#index'
   end
-  resources :places, :only => [ :index, :create, :destroy ,:home]
+  resources :places
   # 記事詳細表示のルーティングにネスト
-  resources :places, expect: [:index] do
-    resource :favorites, only: [:create, :destroy]
-  end
+
 
 #user
   devise_for :users, controllers: {
