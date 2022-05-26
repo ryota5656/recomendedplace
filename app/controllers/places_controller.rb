@@ -20,12 +20,11 @@ class PlacesController < ApplicationController
     if user_signed_in?
       @user = current_user.id
     else
-
     end
 
     @client = GooglePlaces::Client.new( ENV['GOOGLE_API_KEY'])
-
     @client2 = @client.spots( keyword_lat.to_f, keyword_lng.to_f,:language => 'ja',:name => keyword_name, :radius => keyword_rad,:types => keyword_cate, multipage: true,detail: true).sample(3)
+    @place = Place.new
   end
 
   def create
