@@ -142,17 +142,27 @@
               </tr>
             </table>
             <%if user_signed_in?%>
-              <%= form_with(model: @place, url: places_path) do |f| %>
-                <%= f.hidden_field :user_id, :value => @user %>
-                <%= f.hidden_field :name, :value => @client.spot(place.place_id, :language => 'ja').name %>
-                <%= f.hidden_field :latitude, :value => place.lat%>
-                <%= f.hidden_field :longitude, :value => place.lng %>
-                <%= f.hidden_field :price_level, :value => place.price_level %>
-                <%= f.hidden_field :rating, :value => place.rating %>
-                <%= f.hidden_field :place_id, :value => place.place_id %>
-                <%= f.hidden_field :address, :value => @client.spot(place.place_id, :language => 'ja').formatted_address %>
-                <%= f.submit "送信" %>
-              <% end %>
+            <%= form_with(model: @place, url: places_path) do |f| %>
+              <%= f.hidden_field :user_id, :value => @user %>
+              <%= f.hidden_field :name, :value => @client.spot(place.place_id, :language => 'ja').name %>
+              <%= f.hidden_field :latitude, :value => place.lat%>
+              <%= f.hidden_field :longitude, :value => place.lng %>
+              <%= f.hidden_field :price_level, :value => place.price_level %>
+              <%= f.hidden_field :rating, :value => place.rating %>
+              <%= f.hidden_field :place_id, :value => place.place_id %>
+              <%= f.hidden_field :address, :value => @client.spot(place.place_id, :language => 'ja').formatted_address %>
+              <%= f.submit "送信",class:"btn btn-success register col-lg-12 mt-3 p-2" %>
+            <% end %>
+              <%= link_to( '登録', places_path( :place => { :user_id    =>  @user,
+                                                            :name      => @client.spot(place.place_id, :language => 'ja').name,
+                                                            :latitude  => place.lat,
+                                                            :longitude => place.lng,
+                                                            :price_level => place.price_level,
+                                                            :rating => place.rating,
+                                                            :place_id => place.place_id,
+                                                            :address   => @client.spot(place.place_id, :language => 'ja').formatted_address, } ),
+                                                            class:"btn btn-success register col-lg-12 mt-3 p-2" ,
+                                                            :method => 'post' )%>
             <%else%>
               <%= link_to  new_user_session_path do%>
               <div><p class="btn btn-success col-lg-12 mt-3 p-2" >ログイン</p></div>
