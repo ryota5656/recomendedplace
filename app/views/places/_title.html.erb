@@ -1,70 +1,51 @@
 <div class="container-fluid">
-  <div class="row flex-nowrap">
-    <div class=" col-lg-4">
+  <div class="row flex-nowrap pt-3">
+    <div class="col-lg-2">
+    <%= image_tag 'logo.png' %>
+    </div>
+    <div class="col-lg-2">
       <div class="row">
-        <div class="col-lg-7 d-flex align-items-center">
-          <%= image_tag 'logo.png' %>
+        <div class="col-lg-12  title-flame mt-3">
+          <%= link_to  places_home_path, data: {"turbolinks" => false},class: 'btn' do%>
+          <div><p class="m-0 title-flame-text text-center">Go to</p></div>
+          <%end%>
         </div>
-        <div class="col-lg-5 logo-title">
-          <p class="m-0 p-0 logo-title1">グーグル</p>
-          <p class="m-0 p-0 logo-title2">プレイス</p>
-          <p class="m-0 p-0 logo-title3">チャレンジ</p>
+        <div class="col-lg-12  title-flame mt-3">
+          <%= link_to  all_places_all_path, data: {"turbolinks" => false},class: 'btn' do%>
+          <div><p class="m-0 title-flame-text text-center">Everyone</p></div>
+          <%end%>
         </div>
       </div>
+
     </div>
-    <div class="col-lg-9">
-      <div class="row">
-        <div class="col-lg-3 pt-2 title-flame m-3">
-          <%= link_to  places_home_path, data: {"turbolinks" => false},class: 'btn' do%>
-          <div><p class="m-0 switching-text text-center">Where to go</p></div>
-          <p class="text-center">-どこへ行く？-</p>
-          <%end%>
-        </div>
-        <div class="col-lg-5 pt-2 title-flame m-3">
-          <%= link_to  all_places_all_path, data: {"turbolinks" => false},class: 'btn' do%>
-          <div><p class="m-0 switching-text text-center">Where everyone went</p></div>
-          <p class="text-center">-みんなの行ったところ-</p>
-          <%end%>
-        </div>
-        <%if user_signed_in?%>
-          <div class="col-lg-2 mt-4">
-          <div class="dropdown text-center">
-            <button class="btn rounded-circle p-0 " type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <div class="header_profile_image">
-            <!--アイコン表示-->
-              <% if current_user.image? %>
-                <%=  image_tag current_user.image.url%>
-              <% else  %>
-                <%= image_tag "default.png"%>
-              <%end%>
-              </div>
-            </button>
-            <p class="text-center"><%= current_user.name %></p>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <p class="dropdown-item mt-3"><%= link_to 'マイページ', user_path(id: current_user.id),class: 'dropdown-item'%></p>
-              <p class="dropdown-item"><%= link_to 'ログアウト',destroy_user_session_path,class: 'dropdown-item',method: :delete%></p>
-            </div>
-          </div>
-        <%else%>
-          <div class="col-lg-1 pt-2 m-3">
-            <%= link_to  new_user_session_path, data: {"turbolinks" => false},class: 'btn' do%>
-            <div><p class="m-0 switching-text d-flex align-items-center">Login</p></div>
-            <%end%>
-          </div>
-        <%end%>
-
-
-
-          </div>
-        <div class="col-lg-10">
-          <h3>グーグルプレイスチャレンジにようこそ</h3>
-          このサイトは、今日どこに行くか何をするか悩んでいる時や優柔不断なあなたにぴったりなチャレンジゲームです。<br>
+    <div class="col-lg-7">
+      <h3 class="introduction-title">グーグルプレイスチャレンジにようこそ</h3>
+          このサイトは、今日どこに行くか何をするか悩んでいる時にぴったりなチャレンジゲームです。<br>
           例えば、今日カフェに行きたいけどどこいくか悩んでいる時、今日友達と飲む予定があるが場所がまだ決まってない時、条件を選んで検索すればグーグルが３つ候補を選んでくれます。<br>
           あなたはその３つの中から１つ気になるところ選んでチャレンジだと思って試しに行ってみる。<br>
           もしかしたら、普段自分じゃ行かないところで面白い発見や、出会いがあるかもしれない。<br>
           そんな自分で選ばなかった事による新しい発見を楽しいでください！<br>
-        </div>
-      </div>
+    </div>
+    <div class="col-lg-1">
+
+        <% if user_signed_in? %>
+          <div class="header_profile_image">
+          <!--アイコン表示-->
+            <% if current_user.image? %>
+              <%=  image_tag current_user.image.url%>
+            <% else  %>
+              <%= image_tag "default.png"%>
+            <%end%>
+          </div>
+          <p class="text-center"><%= current_user.name %></p>
+          <p><%= link_to 'マイページ', user_path(id: current_user.id)%></p>
+          <p><%= link_to 'ログアウト',destroy_user_session_path,method: :delete%></p>
+        <% else %>
+          <%= link_to  new_user_session_path, data: {"turbolinks" => false},class: 'btn' do%>
+            <div><p class="m-0 switching-text d-flex align-items-center">Login</p></div>
+          <% end %>
+        <% end %>
+
     </div>
   </div>
 </div>

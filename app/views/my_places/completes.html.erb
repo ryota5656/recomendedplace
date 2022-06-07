@@ -22,8 +22,7 @@
       <div class="col-lg-6 text-right">
         <div class="row">
           <div class="col-lg-8"></div>
-          <div class="col-lg-4 text-center">
-            <button class="btn rounded-circle p-0 " type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <div class="col-lg-2 text-center">
               <div class="header_profile_image">
                 <!--アイコン表示-->
                 <% if current_user.image? %>
@@ -32,11 +31,12 @@
                   <%= image_tag "default.png"%>
                 <%end%>
               </div>
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <p class="dropdown-item mt-3"><%= link_to 'マイページ', user_path(id: current_user.id),class: 'dropdown-item'%></p>
-              <p class="dropdown-item"><%= link_to 'ログアウト',destroy_user_session_path,class: 'dropdown-item',method: :delete%></p>
-            </div>
+          </div>
+          <div class="col-lg-2 text-center mt-2">
+
+              <p><%= link_to 'マイページ', user_path(id: current_user.id),class: 'profile-link'%></p>
+              <p><%= link_to 'ログアウト',destroy_user_session_path,class: 'profile-link',method: :delete%></p>
+
           </div>
         </div>
       </div>

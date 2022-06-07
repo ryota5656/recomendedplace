@@ -136,12 +136,27 @@ body {
 }
 .title-flame{
   width: 100%;
-  background-color: #eee;
-  border-radius: 10px;
+  background-color: #17a2b8;
+  border-radius: 50px;
   text-align: center;
-  border-style: solid;
-  border-width: 2px;
-  border-color: #64605e;
+}
+
+.title-flame-text{
+  text-decoration:none !important;
+  margin-bottom: 1.1111111111vw;
+  font-family: Sen;
+  color: #ffffff;
+  font-size: 28px;
+  font-weight: 900;
+}
+
+.introduction-title{
+  text-decoration:none !important;
+  margin-bottom: 1.1111111111vw;
+  font-family: Sen;
+  color: #17a2b8;
+  font-size: 28px;
+  font-weight: 900;
 }
 
 
