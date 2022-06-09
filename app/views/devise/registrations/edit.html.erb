@@ -7,6 +7,11 @@
     <%= render "devise/shared/error_messages", resource: resource %>
 
     <div class="form-group">
+      <%= f.label :name, "ユーザーネーム", :class => "form-label" %>
+      <%= f.text_field :name, autocomplete: "name", :class => "form-control" %>
+    </div>
+
+    <div class="form-group">
       <%= f.label :email, "Eメール", :class => "form-label" %>
       <%= f.email_field :email, autocomplete: "email", :class => "form-control" %>
     </div>
@@ -37,6 +42,11 @@
       <%= f.label :current_password, "現在のパスワード", :class => "form-label" %>
       <%= f.password_field :current_password, :class => "form-control" %>
       <div class="small form-text">変更のために現在のパスワードを入力してください。</div>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :image, "アイコンにする画像を添付してください", :class => "form-label" %><br>
+      <%= f.file_field :image %>
     </div>
 
     <div class="actions">

@@ -25,7 +25,9 @@
         var contentString<%=i%> =
             '<p><h5><%= f.place.name %></h5></p>'+
             '<p>ユーザー名：<%= link_to f.user.name, user_path(id: f.user_id)%></p>'+
+            '<% if f.place.place_id.present?%>'+
             '<%= image_tag(@client.spot(f.place.place_id).photos[0].fetch_url(800), size: '240x160')%>'+
+            '<% end %>'+
             '<p>コメント：<%= f.place.completes.first.comment %></p>'+
             '<p>評　　価：<%= f.place.completes.first.rate%></p>'+
             '<%if user_signed_in?%>'+

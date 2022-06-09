@@ -1,3 +1,81 @@
+<%= stylesheet_link_tag 'my_places' %>
+<%= stylesheet_link_tag 'users' %>
+<!--アイコンの表示-->
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" />
+<!--myplaces.jsに@places_countを渡す-->
+<input type="hidden" id="places_count" value="<%= @places_count %>">
+<p><h5>　</h5></p>
+<p><h5>　</h5></p>
+
+<div class="container">
+  <div class="row">
+    <nav class="navbar navbar-expand navbar-dark bg-info fixed-top navbar-font">
+      <div class="col-lg-6  d-flex">
+        <%= link_to 'HOME', places_home_path, class: 'navbar-brand', data: {"turbolinks" => false} %>
+        <ul class="navbar-nav ">
+          <li class="nav-item"><%= link_to '行くとこ', my_places_todo_path, class: 'nav-link', data: {"turbolinks" => false}  %></li>
+          <li class="nav-item"><%= link_to '行った', my_places_completes_path, class: 'nav-link' %></li>
+        </ul>
+        <ul class="navbar-nav">
+          <li class="nav-item active"><%= link_to 'お気に入り', my_places_favorites_path, class: 'nav-link' %></li>
+        </ul>
+      </div>
+      <div class="col-lg-6 text-right">
+        <div class="row">
+          <div class="col-lg-8"></div>
+          <div class="col-lg-2 text-center">
+              <div class="header_profile_image">
+                <!--アイコン表示-->
+                <% if current_user.image? %>
+                  <%=  image_tag current_user.image.url%>
+                <% else  %>
+                  <%= image_tag "default.png"%>
+                <%end%>
+              </div>
+          </div>
+          <div class="col-lg-2 text-center mt-2">
+
+              <p><%= link_to 'マイページ', user_path(id: current_user.id),class: 'profile-link'%></p>
+              <p><%= link_to 'ログアウト',destroy_user_session_path,class: 'profile-link',method: :delete%></p>
+
+          </div>
+        </div>
+      </div>
+    </nav>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8 mx-auto">
+      <div class="profile_box">
+        <div class="profile_image mt-5 ">
+
+        </div>
+        <div class="profile_element text-center h3">
+          <p></p>
+        </div>
+        <div class="profile_element">
+          <table width = "100%">
+            <tr>
+              <th width="30%">メールアドレス</th>
+              <td width="100%"></td>
+            </tr>
+          </table>
+        </div>
+        <div class="profile_element">
+          <table width = "100%">
+            <tr>
+              <th width="30%">自己紹介</th>
+              <td width="100%"></td>
+            </tr>
+          </table>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
 <h1>Posts#edit</h1>
 <%= stylesheet_link_tag 'my_places' %>
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" />
