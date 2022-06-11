@@ -1,5 +1,4 @@
 <%= stylesheet_link_tag 'my_places' %>
-<%= stylesheet_link_tag 'users' %>
 <!--アイコンの表示-->
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" />
 <!--myplaces.jsに@places_countを渡す-->
@@ -7,17 +6,17 @@
 <p><h5>　</h5></p>
 <p><h5>　</h5></p>
 
-<div class="container">
+  <div class="container">
   <div class="row">
     <nav class="navbar navbar-expand navbar-dark bg-info fixed-top navbar-font">
       <div class="col-lg-6  d-flex">
         <%= link_to 'HOME', places_home_path, class: 'navbar-brand', data: {"turbolinks" => false} %>
         <ul class="navbar-nav ">
           <li class="nav-item"><%= link_to '行くとこ', my_places_todo_path, class: 'nav-link', data: {"turbolinks" => false}  %></li>
-          <li class="nav-item"><%= link_to '行った', my_places_completes_path, class: 'nav-link' %></li>
+          <li class="nav-item active"><%= link_to '行った', my_places_completes_path, class: 'nav-link' %></li>
         </ul>
         <ul class="navbar-nav">
-          <li class="nav-item active"><%= link_to 'お気に入り', my_places_favorites_path, class: 'nav-link' %></li>
+          <li class="nav-item"><%= link_to 'お気に入り', my_places_favorites_path, class: 'nav-link' %></li>
         </ul>
       </div>
       <div class="col-lg-6 text-right">
@@ -45,6 +44,8 @@
   </div>
 </div>
 
+
+<%= stylesheet_link_tag 'users' %>
 <div class="container">
   <div class="row">
     <div class="col-lg-8 mx-auto">
@@ -52,88 +53,93 @@
         <div class="profile_image mt-5 ">
 
         </div>
-        <div class="profile_element text-center h3">
-          <p></p>
-        </div>
+        <div class="profile_element text-center h3"></div>
         <div class="profile_element">
           <table width = "100%">
-            <tr>
-              <th width="30%">メールアドレス</th>
-              <td width="100%"></td>
-            </tr>
-          </table>
-        </div>
-        <div class="profile_element">
-          <table width = "100%">
-            <tr>
-              <th width="30%">自己紹介</th>
-              <td width="100%"></td>
+              <th class="th-name" width="100%">
+              <%= @place.place.name%>
             </tr>
           </table>
         </div>
 
+
+
+        <%= form_with model: @place,url: my_place_path, local: true do |f| %>
+          <div>
+              <div class="profile_element">
+                <table width = "100%">
+                  <tr>
+                    <th width="100%">コメント<br>
+                    <%= f.text_area :comment ,size: "70x5"%></th>
+                  </tr>
+                </table>
+              </div>
+
+              <div class="profile_element">
+                <table width = "100%">
+                  <tr>
+                    <th width="100%">評価<br>
+                    <%= f.hidden_field :rate, id: "rating-value"%>
+                    <div class="main-rating">
+                      <div class="ratings ratings mb-3">
+                        <span class="fa fa-star-o" id="star"></span>
+                        <span class="fa fa-star-o" id="star"></span>
+                        <span class="fa fa-star-o" id="star"></span>
+                        <span class="fa fa-star-o" id="star"></span>
+                        <span class="fa fa-star-o" id="star"></span>
+                      </div>
+                      <div class="ml-3 rating-value-display"><span id="rating-value-display">0</span>/5</div>
+                    </div></th>
+                  </tr>
+                </table>
+              </div>
+
+
+
+              <!--評価js-->
+                <script>
+                  const stars2 = document.querySelector(".ratings").children;
+                  const ratingValue2 = document.getElementById("rating-value");
+                  const ratingValueDisplay2 = document.getElementById("rating-value-display");
+                  let index2;
+
+                  for(let i=0; i<stars2.length; i++){
+                    stars2[i].addEventListener("mouseover", function(){
+                      for(let j=0; j<stars2.length; j++){
+                        stars2[j].classList.remove("fa-star");
+                        stars2[j].classList.add("fa-star-o");
+                      }
+                      for(let j=0; j<=i; j++){
+                        stars2[j].classList.remove("fa-star-o");
+                        stars2[j].classList.add("fa-star");
+                      }
+                    })
+
+                    stars2[i].addEventListener("click", function(){
+                      ratingValue2.value = i + 1;
+                      ratingValueDisplay2.textContent = ratingValue2.value;
+                      index2 = i;
+                    })
+
+                    stars2[i].addEventListener("mouseout", function(){
+                      for(let j=0; j<stars2.length; j++){
+                        stars2[j].classList.remove("fa-star");
+                        stars2[j].classList.add("fa-star-o");
+                      }
+                      for(let j=0; j<=index2; j++){
+                        stars2[j].classList.remove("fa-star-o");
+                        stars2[j].classList.add("fa-star");
+                      }
+                    })
+                  }
+                </script>
+          </div>
+          <div>
+          <%= f.submit "更新する", :class => "btn btn-primary btn-block"%>
+          <%= link_to "キャンセルして戻る", :back, :class => "btn btn-secondary btn-block" %>
+          </div>
+        <% end %>
       </div>
     </div>
   </div>
 </div>
-<h1>Posts#edit</h1>
-<%= stylesheet_link_tag 'my_places' %>
-<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" />
-<span>現在ログイン中のユーザー：<%= current_user.name %></span>
-<%= form_with model: @place,url: my_place_path, local: true do |f| %>
-    <div>
-        <%= f.label :中身 %><br>
-        <%= f.text_area :comment %>
-        <%= f.label :中身 %><br>
-        <div class="main-rating">
-          <div class="ratings ratings mb-3">
-            <span class="fa fa-star-o" id="star"></span>
-            <span class="fa fa-star-o" id="star"></span>
-            <span class="fa fa-star-o" id="star"></span>
-            <span class="fa fa-star-o" id="star"></span>
-            <span class="fa fa-star-o" id="star"></span>
-          </div>
-          <div class="ml-3 rating-value-display"><span id="rating-value-display">0</span>/5</div>
-        </div>
-        <%= f.text_field :rate, id: "rating-value"%>
-
-        <!--評価js-->
-        <script>
-          const stars = document.querySelector(".ratings").children;
-          const ratingValue = document.getElementById("rating-value");
-          const ratingValueDisplay = document.getElementById("rating-value-display");
-          let index;
-
-          for(let i=0; i<stars.length; i++){
-            stars[i].addEventListener("mouseover", function(){
-              for(let j=0; j<stars.length; j++){
-                stars[j].classList.remove("fa-star");
-                stars[j].classList.add("fa-star-o");
-              }
-              for(let j=0; j<=i; j++){
-                stars[j].classList.remove("fa-star-o");
-                stars[j].classList.add("fa-star");
-              }
-            })
-
-            stars[i].addEventListener("click", function(){
-              ratingValue.value = i + 1;
-              ratingValueDisplay.textContent = ratingValue.value;
-              index = i;
-            })
-
-            stars[i].addEventListener("mouseout", function(){
-              for(let j=0; j<stars.length; j++){
-                stars[j].classList.remove("fa-star");
-                stars[j].classList.add("fa-star-o");
-              }
-              for(let j=0; j<=index; j++){
-                stars[j].classList.remove("fa-star-o");
-                stars[j].classList.add("fa-star");
-              }
-            })
-          }
-        </script>
-    </div>
-    <div><%= f.submit "更新する" %></div>
-<% end %>
