@@ -44,12 +44,12 @@ jobs:
            bundle exec rake db:schema:load
 
     # googlemapAPI
-      - run:
-          name: GoogleMap API
-          command: |
-            touch .env
-            echo GOOGLE_API_KEY=$GOOGLE_API_KEY > .env
-            echo GOOGLE_MAP_API_KEY=$GOOGLE_MAP_API_KEY > .env
+    - run:
+        name: GoogleMap API
+        command: |
+          touch .env
+          echo GOOGLE_API_KEY=$GOOGLE_API_KEY > .env
+          echo GOOGLE_MAP_API_KEY=$GOOGLE_MAP_API_KEY > .env
 
     # run tests!
     - run:
