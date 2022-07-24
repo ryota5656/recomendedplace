@@ -43,6 +43,14 @@ jobs:
            bundle exec rake db:create
            bundle exec rake db:schema:load
 
+    # googlemapAPI
+      - run:
+          name: GoogleMap API
+          command: |
+            touch .env
+            echo GOOGLE_API_KEY=$GOOGLE_API_KEY > .env
+            echo GOOGLE_MAP_API_KEY=$GOOGLE_MAP_API_KEY > .env
+
     # run tests!
     - run:
         name: Run rspec
@@ -56,6 +64,7 @@ jobs:
             --out /tmp/test-results/rspec.xml \
             --format progress \
             $TEST_FILES
+
 
     # collect reports
     - store_test_results:
