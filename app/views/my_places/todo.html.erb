@@ -36,7 +36,7 @@
           <div class="col-lg-2 text-center mt-2">
 
               <p><%= link_to 'マイページ', user_path(id: current_user.id),class: 'profile-link'%></p>
-              <p><%= link_to 'ログアウト',destroy_user_session_path,class: 'profile-link',method: :delete%></p>
+              <p><%= link_to 'ログアウト',destroy_user_session_path,class: 'profile-link',method: :get %></p>
 
           </div>
         </div>
@@ -72,11 +72,11 @@
             <p class="font-weight-bold mt-2 mb-0">評価・コメント</p>
             <div class="main-rating">
               <div class="ratings ratings<%=i%> mb-3">
-                <span class="fa fa-star-o" id="star<%=i%>"></span>
-                <span class="fa fa-star-o" id="star<%=i%>"></span>
-                <span class="fa fa-star-o" id="star<%=i%>"></span>
-                <span class="fa fa-star-o" id="star<%=i%>"></span>
-                <span class="fa fa-star-o" id="star<%=i%>"></span>
+                <span class="fa fa-star-o star" id="star<%=i%>"></span>
+                <span class="fa fa-star-o star" id="star<%=i%>"></span>
+                <span class="fa fa-star-o star" id="star<%=i%>"></span>
+                <span class="fa fa-star-o star" id="star<%=i%>"></span>
+                <span class="fa fa-star-o star" id="star<%=i%>"></span>
               </div>
               <div class="ml-3 rating-value-display"><span id="rating-value-display<%=i%>">0</span>/5</div>
             </div>
@@ -126,7 +126,7 @@
                 <% end %>
               </div>
 
-              <div><%= link_to "　削　除　", place, method: :delete, data: { confirm: "本当に削除しますか？" }, class: 'btn btn-danger mx-1 lift-btn'%></div>
+              <div><%= button_to "　削　除　", my_place_path(place.id), method: :delete, data: { confirm: "本当に削除しますか？" }, class: 'btn btn-danger mx-1 lift-btn'%></div>
             </div>
 
       </div>

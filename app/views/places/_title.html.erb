@@ -39,7 +39,7 @@
           </div>
           <p class="text-center"><%= current_user.name %></p>
           <p><%= link_to 'マイページ', user_path(id: current_user.id)%></p>
-          <p><%= link_to 'ログアウト',destroy_user_session_path,method: :delete%></p>
+          <p><%= link_to 'ログアウト',destroy_user_session_path,method: :get%></p>
         <% else %>
           <%= link_to  new_user_session_path, data: {"turbolinks" => false},class: 'btn' do%>
             <div><p class="m-0 switching-text d-flex align-items-center">Login</p></div>

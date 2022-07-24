@@ -43,130 +43,127 @@
     </div>
   </div>
 </div>
+<% if @client2.empty? %>
+<% else %>
+  <div class="container-fluid p-3">
+    <div class="row">
+    <div class="col-lg-12">検索結果</div>
+        <% @client2.each do |place| %>
+          <div class="col-lg-4 p-3">
+            <div class="place-list p-1">
+            <!-- 1個目のSwiper START -->
+              <!-- Swiper START -->
 
-<div class="container-fluid p-3">
-  <div class="row">
-
-
-
-      <% @client2.each do |place| %>
-        <div class="col-lg-4 p-3">
-          <div class="place-list p-1">
-          <!-- 1個目のSwiper START -->
-            <!-- Swiper START -->
-
-            <div class="swiper-container swiper1">
-              <!-- メイン表示部分 -->
-              <div class="swiper-wrapper">
-                <!-- 各スライド -->
-                <div class="swiper-slide">
-                  <% if place.photos[0].present?%>
-                    <%= image_tag(place.photos[0].fetch_url(800), size: '480x360' )%>
-                  <% end %>
+              <div class="swiper-container swiper1">
+                <!-- メイン表示部分 -->
+                <div class="swiper-wrapper">
+                  <!-- 各スライド -->
+                  <div class="swiper-slide">
+                    <% if place.photos[0].present?%>
+                      <%= image_tag(place.photos[0].fetch_url(800), size: '480x360' )%>
+                    <% end %>
+                  </div>
+                  <div class="swiper-slide">
+                    <% if place.photos[1].present?%>
+                      <%= image_tag(place.photos[1].fetch_url(800), size: '480x360' )%>
+                    <% end %>
+                  </div>
+                  <div class="swiper-slide">
+                    <% if place.photos[2].present?%>
+                      <%= image_tag(place.photos[2].fetch_url(800), size: '480x360' )%>
+                    <% end %>
+                  </div>
                 </div>
-                <div class="swiper-slide">
-                  <% if place.photos[1].present?%>
-                    <%= image_tag(place.photos[1].fetch_url(800), size: '480x360' )%>
-                  <% end %>
-                </div>
-                <div class="swiper-slide">
-                  <% if place.photos[2].present?%>
-                    <%= image_tag(place.photos[2].fetch_url(800), size: '480x360' )%>
-                  <% end %>
+                <div class="swiper-button-prev prev1"></div>
+                <div class="swiper-button-next next1"></div>
+              </div>
+              <!-- Swiper END -->
+            <!-- 1個目のSwiper END -->
+
+            <!-- 2個目のSwiper START -->
+              <!-- Swiper START -->
+              <div class="swiper-container swiper2">
+                <!-- メイン表示部分 -->
+                <div class="swiper-wrapper">
+                  <!-- 各スライド -->
+                  <div class="swiper-slide">
+                    <% if place.photos[0].present?%>
+                      <%= image_tag(place.photos[0].fetch_url(800), size: '180x100' )%>
+                    <% end %>
+                  </div>
+                  <div class="swiper-slide">
+                    <% if place.photos[1].present?%>
+                      <%= image_tag(place.photos[1].fetch_url(800), size: '180x100' )%>
+                    <% end %>
+                  </div>
+                  <div class="swiper-slide">
+                    <% if place.photos[2].present?%>
+                      <%= image_tag(place.photos[2].fetch_url(800), size: '180x100' )%>
+                    <% end %>
+                  </div>
                 </div>
               </div>
-              <div class="swiper-button-prev prev1"></div>
-              <div class="swiper-button-next next1"></div>
-            </div>
-            <!-- Swiper END -->
-          <!-- 1個目のSwiper END -->
-
-          <!-- 2個目のSwiper START -->
-            <!-- Swiper START -->
-            <div class="swiper-container swiper2">
-              <!-- メイン表示部分 -->
-              <div class="swiper-wrapper">
-                <!-- 各スライド -->
-                <div class="swiper-slide">
-                  <% if place.photos[0].present?%>
-                    <%= image_tag(place.photos[0].fetch_url(800), size: '180x100' )%>
-                  <% end %>
-                </div>
-                <div class="swiper-slide">
-                  <% if place.photos[1].present?%>
-                    <%= image_tag(place.photos[1].fetch_url(800), size: '180x100' )%>
-                  <% end %>
-                </div>
-                <div class="swiper-slide">
-                  <% if place.photos[2].present?%>
-                    <%= image_tag(place.photos[2].fetch_url(800), size: '180x100' )%>
-                  <% end %>
-                </div>
-              </div>
-            </div>
-            <!-- Swiper END -->
-          <!-- 2個目のSwiper END -->
-          <div class="place-list-text">
-            <table>
-              <tr>
-                <th>
-                  <p>名前</p>
-                </th>
-                <td>
-                  <%= @client.spot(place.place_id, :language => 'ja').name %>
-                </td>
-              </tr>
-              <tr>
-                <th>
-                  <p>価格帯　</p>
-                </th>
-                <td>
-                  <%= place.price_level %>
-                </td>
-              </tr>
-              <tr>
-                <th>
-                  <p>評価</p>
-                </th>
-                <td>
-                  <%= place.rating %>
-                </td>
-              </tr>
-              <tr>
-                <th>
-                  <p>住所</p>
-                </th>
-                <td>
-                  <%= @client.spot(place.place_id, :language => 'ja').vicinity %>
-                </td>
-              </tr>
-            </table>
-            <%if user_signed_in?%>
-            <%= form_with(model: @place, url: places_path) do |f| %>
-              <%= f.hidden_field :user_id, :value => @user %>
-              <%= f.hidden_field :name, :value => @client.spot(place.place_id, :language => 'ja').name %>
-              <%= f.hidden_field :latitude, :value => place.lat%>
-              <%= f.hidden_field :longitude, :value => place.lng %>
-              <%= f.hidden_field :price_level, :value => place.price_level %>
-              <%= f.hidden_field :rating, :value => place.rating %>
-              <%= f.hidden_field :place_id, :value => place.place_id %>
-              <%= f.hidden_field :address, :value => @client.spot(place.place_id, :language => 'ja').formatted_address %>
-              <%= f.submit "登　録",class:"btn btn-success register col-lg-12 mt-3 p-2" %>
-            <% end %>
-            <%else%>
-              <%= link_to  new_user_session_path do%>
-              <div><p class="btn btn-success col-lg-12 mt-3 p-2" >ログイン</p></div>
+              <!-- Swiper END -->
+            <!-- 2個目のSwiper END -->
+            <div class="place-list-text">
+              <table>
+                <tr>
+                  <th>
+                    <p>名前</p>
+                  </th>
+                  <td>
+                    <%= @client.spot(place.place_id, :language => 'ja').name %>
+                  </td>
+                </tr>
+                <tr>
+                  <th>
+                    <p>価格帯　</p>
+                  </th>
+                  <td>
+                    <%= place.price_level %>
+                  </td>
+                </tr>
+                <tr>
+                  <th>
+                    <p>評価</p>
+                  </th>
+                  <td>
+                    <%= place.rating %>
+                  </td>
+                </tr>
+                <tr>
+                  <th>
+                    <p>住所</p>
+                  </th>
+                  <td>
+                    <%= @client.spot(place.place_id, :language => 'ja').vicinity %>
+                  </td>
+                </tr>
+              </table>
+              <%if user_signed_in?%>
+              <%= form_with(model: @place, url: places_path) do |f| %>
+                <%= f.hidden_field :user_id, :value => @user %>
+                <%= f.hidden_field :name, :value => @client.spot(place.place_id, :language => 'ja').name %>
+                <%= f.hidden_field :latitude, :value => place.lat%>
+                <%= f.hidden_field :longitude, :value => place.lng %>
+                <%= f.hidden_field :price_level, :value => place.price_level %>
+                <%= f.hidden_field :rating, :value => place.rating %>
+                <%= f.hidden_field :place_id, :value => place.place_id %>
+                <%= f.hidden_field :address, :value => @client.spot(place.place_id, :language => 'ja').formatted_address %>
+                <%= f.submit "登　録",class:"btn btn-success register col-lg-12 mt-3 p-2" %>
+              <% end %>
+              <%else%>
+                <%= link_to  new_user_session_path do%>
+                <div><p class="btn btn-success col-lg-12 mt-3 p-2" >ログイン</p></div>
+                <%end%>
               <%end%>
-            <%end%>
+              </div>
             </div>
           </div>
-        </div>
-      <% end %>
-
+        <% end %>
+    </div>
   </div>
-</div>
-
-
+<% end %>
 
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.3/css/swiper.min.css">

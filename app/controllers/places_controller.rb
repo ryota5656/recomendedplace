@@ -40,9 +40,7 @@ class PlacesController < ApplicationController
   end
 
   def destroy
-    @places = Place.find(params[:id])
-    @places.destroy
-    redirect_to my_places_todo_path
+
   end
 
   private

@@ -35,7 +35,7 @@
           <div class="col-lg-2 text-center mt-2">
 
               <p><%= link_to 'マイページ', user_path(id: current_user.id),class: 'profile-link'%></p>
-              <p><%= link_to 'ログアウト',destroy_user_session_path,class: 'profile-link',method: :delete%></p>
+              <p><%= link_to 'ログアウト',destroy_user_session_path,class: 'profile-link',method: :get%></p>
 
           </div>
         </div>

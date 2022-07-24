@@ -27,6 +27,7 @@
             '<p>ユーザー名：<%= link_to f.user.name, user_path(id: f.user_id)%></p>'+
             '<% if f.place.place_id.present?%>'+
             '<%= image_tag(@client.spot(f.place.place_id).photos[0].fetch_url(800), size: '240x160')%>'+
+            '<% else %>'+
             '<% end %>'+
             '<p>コメント：<%= f.place.completes.first.comment %></p>'+
             '<p>評　　価：<%= f.place.completes.first.rate%></p>'+
@@ -43,8 +44,8 @@
         });
         <%end%>
       }
-
     </script>
+    <%= @lat %><%= @lng %>
     <div class="col-lg-3 mt-3">
       <div class="button-search">
       <span class="search-title1">東　京</span>
