@@ -58,7 +58,13 @@ jobs:
             $TEST_FILES
 
 
-    ## (参考)　capybaraスクリーンショットを「ARTIFACTS」に表示
+    # collect reports
+    - store_test_results:
+        path: /tmp/test-results
     - store_artifacts:
-      path: tmp/screenshots
-      destination: test-screenshots
+        path: /tmp/test-results
+        destination: test-results
+    # (参考)　capybaraスクリーンショットを「ARTIFACTS」に表示
+    - store_artifacts:
+        path: /tmp/screenshots
+        destination: test-screenshots
