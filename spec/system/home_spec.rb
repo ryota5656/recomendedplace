@@ -8,6 +8,7 @@ RSpec.describe "Homes", js: true , type: :system do
       visit places_home_path
       page.driver.browser.switch_to.alert.accept
       click_on 'Go to'
+      page.driver.browser.switch_to.alert.accept
       expect(page).to have_content 'search'
     end
     it 'everyoneに飛べること' do
