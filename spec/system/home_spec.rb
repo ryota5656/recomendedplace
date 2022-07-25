@@ -6,11 +6,13 @@ RSpec.describe "Homes", js: true , type: :system do
   describe 'ヘッダー関連' do
     it 'Gotoに飛べること' do
       visit places_home_path
+      page.driver.browser.switch_to.alert.accept
       click_on 'Go to'
       expect(page).to have_content 'search'
     end
     it 'everyoneに飛べること' do
       visit places_home_path
+      page.driver.browser.switch_to.alert.accept
       click_on 'Everyone'
       expect(page).to have_content '東　京'
     end
