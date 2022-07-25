@@ -92,12 +92,12 @@ RSpec.describe "Myplaces",js: true, type: :system do
        end
     end
     context 'complete-list' do
-      it 'お気に入り登録' do
+      fit 'お気に入り登録' do
         page.driver.browser.switch_to.alert.accept
         visit my_places_completes_path
         click_button 'お気に入り登録'
         visit my_places_favorites_path
-        expect(page).to have_content '叙々苑'
+        expect(page).to have_content '東京駅'
       end
       it '登録解除' do
         page.driver.browser.switch_to.alert.accept
