@@ -8,7 +8,7 @@ RSpec.describe "Allplaces", js: true, type: :system do
   let!(:complete2){ create(:complete, user_id: user.id, place_id: place2.id)}
 
   describe 'ヘッダー関連' do
-    fit 'Gotoに飛べること' do
+    it 'Gotoに飛べること' do
       visit all_places_all_path
       click_on 'Go to'
       page.driver.browser.switch_to.alert.accept

@@ -153,7 +153,7 @@ RSpec.describe "Myplaces",js: true, type: :system do
           expect(page).not_to have_content "登録解除"
         }. to change(Favorite, :count).by(-1)
       end
-      fit '編集' do
+      it '編集' do
         page.driver.browser.switch_to.alert.accept
         visit my_places_favorites_path
         click_link '編集'
