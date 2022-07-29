@@ -69,7 +69,7 @@ jobs:
         path: /tmp/screenshots
         destination: test-screenshots
 
-  - deploy:
+    - deploy:
         name: Deploy Master to Heroku
         command: |
           if [ "${CIRCLE_BRANCH}" == "master" ]; then
