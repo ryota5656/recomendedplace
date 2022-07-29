@@ -22,7 +22,7 @@ RSpec.describe "Homes", js: true , type: :system do
   describe 'メイン関連' do
     context 'ログインしている場合' do
       before { login(user) }
-      fit '検索から保存ができること' do
+      it '検索から保存ができること' do
         page.driver.browser.switch_to.alert.accept
         fill_in 'name', with: 'ラーメン'
         select '100', from: 'radius'
@@ -33,14 +33,15 @@ RSpec.describe "Homes", js: true , type: :system do
         # 検索結果欄が表示される
         page.driver.browser.switch_to.alert.accept
 
-
+        expect(page).to have_content '検索結果'
+        # 登録する
 
         page.all('.register')[0].click
         expect(current_path).to eq my_places_todo_path
       end
     end
     context 'ログインしていない場合' do
-      fit '検索はできるが登録ができないこと' do
+      it '検索はできるが登録ができないこと' do
         visit places_home_path
         page.driver.browser.switch_to.alert.accept
         fill_in 'name', with: 'ラーメン'
