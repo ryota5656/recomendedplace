@@ -82,7 +82,6 @@ jobs:
     working_directory: ~/portfolio  #自身のアプリディレクトリ名を設定
     steps:
     - checkout
-    - jq/install
     - run:
       name: Deploy Master to Heroku
       command: |
