@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  Rspec:
+  rspec:
     docker:
     - image: circleci/ruby:2.5.9-node-browsers
       environment:
