@@ -25,26 +25,6 @@ jobs:
           name: Run rspec
           command: docker-compose exec potepanec rspec
 
-  rubocop:
-    working_directory: ~/portfolio
-    docker:
-      - image: circleci/ruby:2.7.3
-    steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - gemfiles-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
-            - gemfiles-{{ .Branch }}-
-            - gemfiles-master-
-      - run: bundle config --local path vendor/bundle
-      - run:
-          name: bundle install
-          command: bundle check || bundle install --jobs=8 --clean
-      - save_cache:
-          key: gemfiles-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
-          paths:
-            - vendor/bundle
-
   heroku_deploy:
     working_directory: ~/potepanec
     docker:
