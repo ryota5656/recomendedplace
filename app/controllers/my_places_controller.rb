@@ -1,7 +1,6 @@
 class MyPlacesController < ApplicationController
   before_action :authenticate_user!
 
-
   def todo
     @user = current_user.id
     @placesall = Place.all
@@ -29,12 +28,12 @@ class MyPlacesController < ApplicationController
 
   def create
     @user = current_user.id
-    @comp = Complete.new(params.permit(:rate,:comment,:place_id,:user_id))
-      if @comp.save
-        redirect_to my_places_todo_path
-      else
-        render my_places_todo_path
-      end
+    @comp = Complete.new(params.permit(:rate, :comment, :place_id, :user_id))
+    if @comp.save
+      redirect_to my_places_todo_path
+    else
+      render my_places_todo_path
+    end
   end
 
   def destroy
@@ -49,7 +48,7 @@ class MyPlacesController < ApplicationController
   end
 
   def update
-      @place = Complete.find(params[:id])
+    @place = Complete.find(params[:id])
     if @place.update(place_params)
       redirect_to session[:previous_url], notice: "編集しました"
     else
@@ -59,9 +58,8 @@ class MyPlacesController < ApplicationController
   end
 
   private
+
   def place_params
-    params.require(:complete).permit(:comment,:rate)
+    params.require(:complete).permit(:comment, :rate)
   end
-
-
 end

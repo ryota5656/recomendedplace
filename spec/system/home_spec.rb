@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Homes", js: true , type: :system do
+RSpec.describe "Homes", js: true, type: :system do
   let(:user) { create(:user) }
 
   describe 'ヘッダー関連' do
@@ -22,11 +22,12 @@ RSpec.describe "Homes", js: true , type: :system do
   describe 'メイン関連' do
     context 'ログインしている場合' do
       before { login(user) }
+
       it '検索から保存ができること' do
         page.driver.browser.switch_to.alert.accept
         fill_in 'name', with: 'ラーメン'
         select '100', from: 'radius'
-        #上野駅付近の緯度経度
+        # 上野駅付近の緯度経度
         fill_in 'search2', with: '35.71390988758847'
         fill_in 'search3', with: '139.77707476079408'
         click_on '検　索'
@@ -40,6 +41,7 @@ RSpec.describe "Homes", js: true , type: :system do
         expect(current_path).to eq my_places_todo_path
       end
     end
+
     context 'ログインしていない場合' do
       it '検索はできるが登録ができないこと' do
         visit places_home_path

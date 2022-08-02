@@ -2,10 +2,10 @@ require 'rails_helper'
 
 RSpec.describe "Allplaces", js: true, type: :system do
   let(:user) { create(:user) }
-  let!(:place){ create(:place, user_id: user.id)}
-  let!(:place2){ create(:place, user_id: user.id)}
-  let!(:complete){ create(:complete, user_id: user.id, place_id: place.id)}
-  let!(:complete2){ create(:complete, user_id: user.id, place_id: place2.id)}
+  let!(:place) { create(:place, user_id: user.id) }
+  let!(:place2) { create(:place, user_id: user.id) }
+  let!(:complete) { create(:complete, user_id: user.id, place_id: place.id) }
+  let!(:complete2) { create(:complete, user_id: user.id, place_id: place2.id) }
 
   describe 'ヘッダー関連' do
     it 'Gotoに飛べること' do
@@ -22,18 +22,19 @@ RSpec.describe "Allplaces", js: true, type: :system do
   end
 
   describe 'メイン関係' do
-    context'placeが登録されていること' do
+    context 'placeが登録されていること' do
       it 'infowindowが表示されること' do
         visit all_places_all_path
-        within('#map')do
+        within('#map') do
           pin = find("map#gmimap1 area", visible: false)
           pin.click
           # infowindowの中身
           expect(page).to have_content "東京駅"
         end
-        #page.save_screenshot 'hoge.png'
+        # page.save_screenshot 'hoge.png'
       end
     end
+
     context '各エリアが表示されること' do
       it '東京' do
         visit all_places_all_path

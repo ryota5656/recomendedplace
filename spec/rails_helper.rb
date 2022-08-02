@@ -20,7 +20,7 @@ require 'rspec/rails'
 # directory. Alternatively, in the individual `*_spec.rb` files, manually
 # require only the support files necessary.
 #
- Dir[Rails.root.join('spec', 'support', '**', '*.rb')].sort.each { |f| require f }
+Dir[Rails.root.join('spec', 'support', '**', '*.rb')].sort.each { |f| require f }
 
 # Checks for pending migrations and applies them before tests are run.
 # If you are not using ActiveRecord, you can remove these lines.
@@ -65,11 +65,11 @@ RSpec.configure do |config|
   # deviseのヘルパーメソッドをsystemで使用できるように設定
   config.include Devise::Test::IntegrationHelpers, type: :system
 
-   # FactoryBotメソッドの省略
-   config.include FactoryBot::Syntax::Methods
-   config.include LoginModule
+  # FactoryBotメソッドの省略
+  config.include FactoryBot::Syntax::Methods
+  config.include LoginModule
 
-   RSpec.configure do |config|
+  RSpec.configure do |config|
     config.before(:each) do |example|
       if example.metadata[:type] == :system
         if example.metadata[:js]
@@ -86,10 +86,8 @@ RSpec.configure do |config|
     height = Capybara.page.execute_script("return Math.max(document.body.scrollHeight, document.body.offsetHeight, document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight);")
 
     window = Capybara.current_session.driver.browser.manage.window
-    window.resize_to(width+100, height+100)
+    window.resize_to(width + 100, height + 100)
 
     page.save_screenshot path
   end
-
-
 end

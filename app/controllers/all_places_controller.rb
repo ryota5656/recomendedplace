@@ -1,5 +1,4 @@
 class AllPlacesController < ApplicationController
-
   def all
     @all_user = User.all
 
@@ -9,7 +8,7 @@ class AllPlacesController < ApplicationController
     end
 
     @places = Complete.all
-    @client = GooglePlaces::Client.new( ENV['GOOGLE_API_KEY'])
+    @client = GooglePlaces::Client.new(ENV['GOOGLE_API_KEY'])
 
     if params[:lat].present?
       @lat =  params[:lat]
@@ -18,10 +17,9 @@ class AllPlacesController < ApplicationController
     end
 
     if params[:lng].present?
-      @lng =  params[:lng]
+      @lng = params[:lng]
     else
       @lng = 139.69167
     end
   end
-
 end

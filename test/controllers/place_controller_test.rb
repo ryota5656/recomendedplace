@@ -15,5 +15,4 @@ class PlaceControllerTest < ActionDispatch::IntegrationTest
     get place_show_url
     assert_response :success
   end
-
 end

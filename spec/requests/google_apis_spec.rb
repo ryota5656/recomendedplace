@@ -1,9 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe "GoogleApis", type: :request do
-
-
-
   before :each do
     @lat = '-33.8670522'
     @lng = '151.1957362'
@@ -17,7 +14,7 @@ RSpec.describe "GoogleApis", type: :request do
       @collection = GooglePlaces::Spot.list(@lat, @lng, ENV['GOOGLE_API_KEY'], :rankby => "prominence", :radius => @radius)
     end
 
-    it 'should send radius and rankby options' do
+    it 'sends radius and rankby options' do
       expect(GooglePlaces::Spot).to receive(:multi_pages_request).with(
         :spots,
         false,
@@ -29,10 +26,9 @@ RSpec.describe "GoogleApis", type: :request do
           name: nil,
           language: nil,
           keyword: nil,
-          retry_options: {}
-        })
+          retry_options: {},
+        }
+      )
     end
   end
-
-
 end

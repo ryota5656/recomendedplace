@@ -1,5 +1,4 @@
 class PlacesController < ApplicationController
-
   Dotenv.load
 
   def index
@@ -9,8 +8,6 @@ class PlacesController < ApplicationController
   end
 
   def home
-
-    keyword = params[:search]
     keyword_lat = params[:search2]
     keyword_lng = params[:search3]
     keyword_cate = params[:category]
@@ -22,8 +19,8 @@ class PlacesController < ApplicationController
     else
     end
 
-    @client = GooglePlaces::Client.new( ENV['GOOGLE_API_KEY'])
-    @client2 = @client.spots( keyword_lat.to_f, keyword_lng.to_f,:language => 'ja',:name => keyword_name, :radius => keyword_rad,:types => keyword_cate, multipage: true,detail: true).sample(3)
+    @client = GooglePlaces::Client.new(ENV['GOOGLE_API_KEY'])
+    @client2 = @client.spots(keyword_lat.to_f, keyword_lng.to_f, :language => 'ja', :name => keyword_name, :radius => keyword_rad, :types => keyword_cate, multipage: true, detail: true).sample(3)
     @place = Place.new
   end
 
@@ -40,13 +37,12 @@ class PlacesController < ApplicationController
   end
 
   def destroy
-
   end
 
   private
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def place_params
-      params.require(:place).permit(:user_id, :name, :latitude, :longitude, :address, :price_level, :rating, :place_id)
-    end
 
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def place_params
+    params.require(:place).permit(:user_id, :name, :latitude, :longitude, :address, :price_level, :rating, :place_id)
+  end
 end
