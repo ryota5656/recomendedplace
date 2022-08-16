@@ -1,0 +1,145 @@
+<%= stylesheet_link_tag 'my_places' %>
+<!--アイコンの表示-->
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" />
+<!--myplaces.jsに@places_countを渡す-->
+<input type="hidden" id="places_count" value="<%= @places_count %>">
+<p><h5>　</h5></p>
+<p><h5>　</h5></p>
+
+  <div class="container">
+  <div class="row">
+    <nav class="navbar navbar-expand navbar-dark bg-info fixed-top navbar-font">
+      <div class="col-lg-6  d-flex">
+        <%= link_to 'HOME', places_home_path, class: 'navbar-brand', data: {"turbolinks" => false} %>
+        <ul class="navbar-nav ">
+          <li class="nav-item"><%= link_to '行くとこ', my_places_todo_path, class: 'nav-link', data: {"turbolinks" => false}  %></li>
+          <li class="nav-item active"><%= link_to '行った', my_places_completes_path, class: 'nav-link' %></li>
+        </ul>
+        <ul class="navbar-nav">
+          <li class="nav-item"><%= link_to 'お気に入り', my_places_favorites_path, class: 'nav-link' %></li>
+        </ul>
+      </div>
+      <div class="col-lg-6 text-right">
+        <div class="row">
+          <div class="col-lg-8"></div>
+          <div class="col-lg-2 text-center">
+              <div class="header_profile_image">
+                <!--アイコン表示-->
+                <% if current_user.image? %>
+                  <%=  image_tag current_user.image.url%>
+                <% else  %>
+                  <%= image_tag "default.png"%>
+                <%end%>
+              </div>
+          </div>
+          <div class="col-lg-2 text-center mt-2">
+
+              <p><%= link_to 'マイページ', user_path(id: current_user.id),class: 'profile-link'%></p>
+              <p><%= link_to 'ログアウト',destroy_user_session_path,class: 'profile-link',method: :delete%></p>
+
+          </div>
+        </div>
+      </div>
+    </nav>
+  </div>
+</div>
+
+
+<%= stylesheet_link_tag 'users' %>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8 mx-auto">
+      <div class="profile_box">
+        <div class="profile_image mt-5 ">
+
+        </div>
+        <div class="profile_element text-center h3"></div>
+        <div class="profile_element">
+          <table width = "100%">
+              <th class="th-name" width="100%">
+              <%= @place.place.name%>
+            </tr>
+          </table>
+        </div>
+
+
+
+        <%= form_with model: @place,url: my_place_path, local: true do |f| %>
+          <div>
+              <div class="profile_element">
+                <table width = "100%">
+                  <tr>
+                    <th width="100%">コメント<br>
+                    <%= f.text_area :comment ,size: "70x5"%></th>
+                  </tr>
+                </table>
+              </div>
+
+              <div class="profile_element">
+                <table width = "100%">
+                  <tr>
+                    <th width="100%">評価<br>
+                    <%= f.hidden_field :rate, id: "rating-value"%>
+                    <div class="main-rating">
+                      <div class="ratings ratings mb-3">
+                        <span class="fa fa-star-o" id="star"></span>
+                        <span class="fa fa-star-o" id="star"></span>
+                        <span class="fa fa-star-o" id="star"></span>
+                        <span class="fa fa-star-o" id="star"></span>
+                        <span class="fa fa-star-o" id="star"></span>
+                      </div>
+                      <div class="ml-3 rating-value-display"><span id="rating-value-display">0</span>/5</div>
+                    </div></th>
+                  </tr>
+                </table>
+              </div>
+
+
+
+              <!--評価js-->
+                <script>
+                  const stars2 = document.querySelector(".ratings").children;
+                  const ratingValue2 = document.getElementById("rating-value");
+                  const ratingValueDisplay2 = document.getElementById("rating-value-display");
+                  let index2;
+
+                  for(let i=0; i<stars2.length; i++){
+                    stars2[i].addEventListener("mouseover", function(){
+                      for(let j=0; j<stars2.length; j++){
+                        stars2[j].classList.remove("fa-star");
+                        stars2[j].classList.add("fa-star-o");
+                      }
+                      for(let j=0; j<=i; j++){
+                        stars2[j].classList.remove("fa-star-o");
+                        stars2[j].classList.add("fa-star");
+                      }
+                    })
+
+                    stars2[i].addEventListener("click", function(){
+                      ratingValue2.value = i + 1;
+                      ratingValueDisplay2.textContent = ratingValue2.value;
+                      index2 = i;
+                    })
+
+                    stars2[i].addEventListener("mouseout", function(){
+                      for(let j=0; j<stars2.length; j++){
+                        stars2[j].classList.remove("fa-star");
+                        stars2[j].classList.add("fa-star-o");
+                      }
+                      for(let j=0; j<=index2; j++){
+                        stars2[j].classList.remove("fa-star-o");
+                        stars2[j].classList.add("fa-star");
+                      }
+                    })
+                  }
+                </script>
+          </div>
+          <div>
+          <%= f.submit "更新する", :class => "btn btn-primary btn-block"%>
+          <%= link_to "キャンセルして戻る", :back, :class => "btn btn-secondary btn-block" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

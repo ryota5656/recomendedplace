@@ -1,0 +1,97 @@
+<%= stylesheet_link_tag 'all_places' %>
+<%= render 'places/title' %>
+
+<div class="container-fluid">
+  <div class="row">
+
+
+    <div id="map" style='width: 100%; height: 1000px;'></div>
+
+
+    <script>
+      function initMap(){
+        map = new google.maps.Map(document.getElementById('map'),{
+              center: {lat: <%=@lat%>, lng: <%=@lng%>},
+              zoom: 10
+            });
+
+        <% @places.each_with_index do |f,i| %>
+        var latlng = new google.maps.LatLng(<%=f.place.latitude%>,<%=f.place.longitude%>);
+        var marker<%=i%> = new google.maps.Marker({
+            position: latlng,
+            map: map
+            });
+      //情報内容
+        var contentString<%=i%> =
+            '<p><h5><%= f.place.name %></h5></p>'+
+            '<p>ユーザー名：<%= link_to f.user.name, user_path(id: f.user_id)%></p>'+
+            '<% if f.place.place_id.present?%>'+
+            '<%= image_tag(@client.spot(f.place.place_id).photos[0].fetch_url(800), size: '240x160')%>'+
+            '<% else %>'+
+            '<% end %>'+
+            '<p>コメント：<%= f.place.completes.first.comment %></p>'+
+            '<p>評　　価：<%= f.place.completes.first.rate%></p>'+
+            '<%if user_signed_in?%>'+
+              '<%= link_to( '行く', places_path( :place => { :user_id    =>  @user,:name => f.place.name,:latitude  => f.place.latitude,:longitude => f.place.longitude ,:price_level => f.place.price_level,:rating => f.place.rating,:address   => f.place.address, } ),class:"btn btn-success register col-lg-12 mt-3 p-2" ,:method => 'post' )%>';
+            '<%else%>'+
+            '<%end%>'
+        var infowindow<%=i%> = new google.maps.InfoWindow({
+            content: contentString<%=i%>
+        });
+      //クリックで情報表示
+        google.maps.event.addListener(marker<%=i%>, 'click', function () {
+            infowindow<%=i%>.open(map, marker<%=i%>);
+        });
+        <%end%>
+      }
+    </script>
+    <%= @lat %><%= @lng %>
+    <div class="col-lg-3 mt-3">
+      <div class="button-search">
+      <span class="search-title1">東　京</span>
+      <%= form_tag(all_places_all_path, :method => "get") do %>
+        <%= hidden_field_tag :lat ,  value = 35.68944 %>
+        <%= hidden_field_tag :lng ,  value = 139.69167 %>
+        <%= submit_tag "" ,:name => nil ,class: " button-tokyo is-info"%>
+      <% end %>
+      </div>
+    </div>
+
+    <div class="col-lg-3 mt-3">
+      <div class="button-search">
+      <span class="search-title1">大　阪</span>
+      <%= form_tag(all_places_all_path, :method => "get") do %>
+        <%= hidden_field_tag :lat ,  value = 34.68639 %>
+         <%= hidden_field_tag :lng ,  value = 135.52 %>
+        <%= submit_tag "" ,:name => nil ,class: " button-osaka is-info"%>
+      <% end %>
+      </div>
+    </div>
+
+    <div class="col-lg-3 mt-3">
+      <div class="button-search">
+      <span class="search-title1">京　都</span>
+      <%= form_tag(all_places_all_path, :method => "get") do %>
+        <%= hidden_field_tag :lat ,  value = 35.02139 %>
+        <%= hidden_field_tag :lng ,  value = 135.75556 %>
+        <%= submit_tag "" ,:name => nil ,class: " button-kyoto is-info"%>
+      <% end %>
+      </div>
+    </div>
+
+    <div class="col-lg-3 mt-3">
+      <div class="button-search">
+        <span class="search-title1">札　幌</span>
+        <%= form_tag(all_places_all_path, :method => "get") do %>
+        <%= hidden_field_tag :lat ,  value = 43.06417 %>
+        <%= hidden_field_tag :lng ,  value = 141.34694 %>
+        <%= submit_tag "" ,:name => nil ,class: " button-sapporo is-info"%>
+      <% end %>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB_jNhdCQW0ZnFQV14ijcYBvb9clHjddUY&callback=initMap" async defer></script>

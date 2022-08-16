@@ -1,0 +1,131 @@
+
+
+
+<%= link_to 'ログアウト',
+destroy_user_session_path,
+class: 'dropdown-item',
+method: :delete
+%>
+
+<% if user_signed_in? %>
+<h1>login</h1>
+<%else%>
+<h1>logout</h1>
+<%end%>
+
+<%= form_with local: true, method: :get do |form| %>
+<h2>gmap</h2>
+
+<div class="form-group">
+  <div class="row">
+    <div class="col-sm-3">
+
+    <%= form.label :lat, "緯度" %>
+    <%= form.text_field :search2 , id: "lat" ,value: params[:search2]%>
+
+    </div>
+  </div>
+</div>
+<div class="form-group">
+  <div class="row">
+    <div class="col-sm-3">
+        <%= form.label :lng, "経度"%>
+        <%= form.text_field :search3, id: "lng" ,value: params[:search3]%>
+        <%= form.text_field :name ,value: params[:name]%>
+        <%= form.select :category, [["全カテゴリ","nil"],["cafe", "cafe"], ["park", "park"], ["居酒屋", "bar"], ["ギャラリー", "art_gallery"], ["美術館・博物館", "museum"],["飲食店","restaurant"]],selected: params[:category]%>
+        <%= form.select :radius, [["100m", "100"], ["300m", "300"], ["500m", "500"], ["1km", "1000"], ["3km", "3000"]],selected: params[:radius]%>
+        <%= form.submit "登録",class:"col-md-2 btn btn-primary mx-3"%>
+    </div>
+
+  </div>
+</div>
+<% end %>
+
+
+
+
+
+<style>
+p {line-height:180%}
+.head-title {width:100%;background:#87ceeb;color:#fff;text-indent:8px;font-weight:700;line-height:180%}
+</style>
+<link rel="stylesheet" type="text/css" href="./style.css" />
+<script src="sample.js"></script>
+</head>
+<body onload="initialize()">
+<div class="head-title">Google Maps APIを使ったサンプル。</div>
+<p>地図座標位置の取得 地図上でクリックで座標・住所の取得</p>
+
+<table style="width:100%;border:0">
+<tr style="background-color:#dddddd">
+<th style="width:20%">項目</th>
+<th>情報</th></tr>
+<tr><td>緯度</td><td id="id_ido"></td></tr>
+<tr><td>経度</td><td id="id_keido"></td></tr>
+<tr><td>ズームレベル</td><td id="id_level"></td></tr>
+<tr><td>住所</td><td id="id_address"></td></tr>
+</table>
+
+<input
+    id="pac-input"
+    class="controls"
+    type="text"
+    placeholder="Search Box"
+  />
+
+<div id="map_canvas" style="width:100%;height:500px"></div>
+</body>
+</html>
+<script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDy1b5ruTTBKO9kBVwvdK-kilOYFB9XHdM&callback=initAutocomplete&libraries=places&v=weekly"
+    async
+  ></script>
+<div class="col-md-12">
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Latitude</th>
+      <th>Longitude</th>
+      <th>Address</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @client2.each do |place| %>
+      <tr>
+        <td><%= @client.spot(place.place_id, :language => 'ja').name %></td>
+        <td><%= place.lat %></td>
+        <td><%= place.lng %></td>
+        <td><%= @client.spot(place.place_id, :language => 'ja').formatted_address %></td>
+        <td><% if place.photos[0].present?%>
+            <%= image_tag(place.photos[0].fetch_url(800), size: '320x240' )%>
+          <% end %></td>
+          <td><% if place.photos[1].present?%>
+            <%= image_tag(place.photos[1].fetch_url(800), size: '320x240' )%>
+          <% end %></td>
+          <td><% if place.photos[2].present?%>
+            <%= image_tag(place.photos[2].fetch_url(800), size: '320x240' )%>
+          <% end %></td>
+
+        <td><%= link_to( '登録', places_path( :place => { :user_id    =>  @user,
+                                                               :name      => @client.spot(place.place_id, :language => 'ja').name,
+                                                               :latitude  => place.lat,
+                                                               :longitude => place.lng,
+                                                               :price_level => place.price_level,
+                                                               :rating => place.rating,
+                                                               :address   => @client.spot(place.place_id, :language => 'ja').formatted_address, } ),:method => 'post' ) %>
+        </td>
+      </tr>
+    <% end %>
+
+
+
+
+
+
+  </tbody>
+  <br>
+  <tbody>
+  <%= javascript_include_tag "sample.js" %>

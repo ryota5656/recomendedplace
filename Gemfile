@@ -56,8 +56,26 @@ group :test do
   gem 'selenium-webdriver'
   # Easy installation and use of chromedriver to run system tests with Chrome
   gem 'chromedriver-helper'
+  gem 'rspec-rails'
+  gem 'factory_bot_rails'
+  gem 'webmock'
+  gem 'vcr'
+  gem 'rubocop-airbnb'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'aws-sdk-s3'
+gem 'dotenv-rails'
+gem 'google_places'
+gem 'gmaps4rails'
+gem "jquery-rails"
+gem 'pry-rails'
+gem 'devise'
+gem 'devise-i18n'
+gem 'bootstrap', '~> 4.3.1'
+gem 'devise-bootstrap-views'
+gem 'carrierwave'
+gem 'fog-aws'
+gem 'rails-erd'
+gem 'webdrivers'

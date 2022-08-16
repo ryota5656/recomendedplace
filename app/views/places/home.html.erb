@@ -1,0 +1,172 @@
+<%= stylesheet_link_tag 'home' %>
+<%= render 'places/title' %>
+
+<div class="container-fluid">
+  <div class="row p-3">
+    <div class="col-lg-8">
+      <!--google mapとsarchの表示-->
+      <body onload="initialize()">
+      <input
+        id="pac-input"
+        class="controls"
+        type="text"
+        placeholder="Search Box"
+      />
+      <div id="map_canvas" style="width:100%;height:700px"></div>
+      </body>
+      <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB_jNhdCQW0ZnFQV14ijcYBvb9clHjddUY&callback=initAutocomplete&libraries=places&v=weekly"
+        async
+      ></script>
+    </div>
+    <div class="col-lg-4 search-window p-3">
+          <p class="p-3 mb-2 search-title text-center">search1</p>
+          <table hidden>
+          <tr><td width="100px">緯度</td><td id="id_ido"></td></tr>
+          <tr><td>経度</td><td id="id_keido"></td></tr>
+          <tr><td>ズームレベル</td><td id="id_level"></td></tr>
+          <tr><td>住所</td><td id="id_address"></td></tr>
+          </table>
+          <%= form_with local: true, method: :get do |form| %>
+          <p class="m-0 mt-3"><%= form.label :name, "フリーワード" %></p>
+          <p class="m-0"><%= form.text_field :name , class: 'form-control',value: params[:name]%></p>
+          <p class="m-0 mt-3"><%= form.label :category, "分類" %></p>
+          <p class="m-0"><%= form.select :category, [["全カテゴリ","nil"],["cafe", "cafe"], ["park", "park"], ["居酒屋", "bar"], ["ギャラリー", "art_gallery"], ["美術館・博物館", "museum"],["飲食店","restaurant"]], {}, class: 'form-control',selected: params[:category]%></p>
+          <p class="m-0 mt-3"><%= form.label :radius, "距離(半径)" %></p>
+          <p class="m-0"><%= form.select :radius, [["100m", "100"], ["300m", "300"], ["500m", "500"], ["1km", "1000"], ["3km", "3000"]], {}, class: 'form-control',selected: params[:radius]%></p>
+          <p class="m-0 mt-3"><%= form.label :lat, "緯度" %></p>
+          <p class="m-0"><%= form.text_field :search2 , class: 'form-control', id: "lat" ,value: params[:search2]%></p>
+          <p class="m-0 mt-3"><%= form.label :lng, "経度"%></p>
+          <p class="m-0"><%= form.text_field :search3, class: 'form-control', id: "lng" ,value: params[:search3]%></p>
+          <p class="m-0"><%= form.submit "検　索",class:"btn btn-success search-btn col-lg-12 mt-3 p-2"%></p>
+          <% end %>
+    </div>
+  </div>
+</div>
+<% if @client2.empty? %>
+<% else %>
+  <div class="container-fluid p-3">
+    <div class="row">
+    <div class="col-lg-12">検索結果</div>
+        <% @client2.each do |place| %>
+          <div class="col-lg-4 p-3">
+            <div class="place-list p-1">
+            <!-- 1個目のSwiper START -->
+              <!-- Swiper START -->
+
+              <div class="swiper-container swiper1">
+                <!-- メイン表示部分 -->
+                <div class="swiper-wrapper">
+                  <!-- 各スライド -->
+                  <div class="swiper-slide">
+                    <% if place.photos[0].present?%>
+                      <%= image_tag(place.photos[0].fetch_url(800), size: '480x360' )%>
+                    <% end %>
+                  </div>
+                  <div class="swiper-slide">
+                    <% if place.photos[1].present?%>
+                      <%= image_tag(place.photos[1].fetch_url(800), size: '480x360' )%>
+                    <% end %>
+                  </div>
+                  <div class="swiper-slide">
+                    <% if place.photos[2].present?%>
+                      <%= image_tag(place.photos[2].fetch_url(800), size: '480x360' )%>
+                    <% end %>
+                  </div>
+                </div>
+                <div class="swiper-button-prev prev1"></div>
+                <div class="swiper-button-next next1"></div>
+              </div>
+              <!-- Swiper END -->
+            <!-- 1個目のSwiper END -->
+
+            <!-- 2個目のSwiper START -->
+              <!-- Swiper START -->
+              <div class="swiper-container swiper2">
+                <!-- メイン表示部分 -->
+                <div class="swiper-wrapper">
+                  <!-- 各スライド -->
+                  <div class="swiper-slide">
+                    <% if place.photos[0].present?%>
+                      <%= image_tag(place.photos[0].fetch_url(800), size: '180x100' )%>
+                    <% end %>
+                  </div>
+                  <div class="swiper-slide">
+                    <% if place.photos[1].present?%>
+                      <%= image_tag(place.photos[1].fetch_url(800), size: '180x100' )%>
+                    <% end %>
+                  </div>
+                  <div class="swiper-slide">
+                    <% if place.photos[2].present?%>
+                      <%= image_tag(place.photos[2].fetch_url(800), size: '180x100' )%>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+              <!-- Swiper END -->
+            <!-- 2個目のSwiper END -->
+            <div class="place-list-text">
+              <table>
+                <tr>
+                  <th>
+                    <p>名前</p>
+                  </th>
+                  <td>
+                    <%= @client.spot(place.place_id, :language => 'ja').name %>
+                  </td>
+                </tr>
+                <tr>
+                  <th>
+                    <p>価格帯　</p>
+                  </th>
+                  <td>
+                    <%= place.price_level %>
+                  </td>
+                </tr>
+                <tr>
+                  <th>
+                    <p>評価</p>
+                  </th>
+                  <td>
+                    <%= place.rating %>
+                  </td>
+                </tr>
+                <tr>
+                  <th>
+                    <p>住所</p>
+                  </th>
+                  <td>
+                    <%= @client.spot(place.place_id, :language => 'ja').vicinity %>
+                  </td>
+                </tr>
+              </table>
+              <%if user_signed_in?%>
+              <%= form_with(model: @place, url: places_path) do |f| %>
+                <%= f.hidden_field :user_id, :value => @user %>
+                <%= f.hidden_field :name, :value => @client.spot(place.place_id, :language => 'ja').name %>
+                <%= f.hidden_field :latitude, :value => place.lat%>
+                <%= f.hidden_field :longitude, :value => place.lng %>
+                <%= f.hidden_field :price_level, :value => place.price_level %>
+                <%= f.hidden_field :rating, :value => place.rating %>
+                <%= f.hidden_field :place_id, :value => place.place_id %>
+                <%= f.hidden_field :address, :value => @client.spot(place.place_id, :language => 'ja').formatted_address %>
+                <%= f.submit "登　録",class:"btn btn-success register col-lg-12 mt-3 p-2" %>
+              <% end %>
+              <%else%>
+                <%= link_to  new_user_session_path do%>
+                <div><p class="btn btn-success col-lg-12 mt-3 p-2" >ログイン</p></div>
+                <%end%>
+              <%end%>
+              </div>
+            </div>
+          </div>
+        <% end %>
+    </div>
+  </div>
+<% end %>
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.3/css/swiper.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.3/js/swiper.min.js"></script>
+<%= javascript_include_tag "swiper.js" %>
+<%= javascript_include_tag "sample.js" %>
