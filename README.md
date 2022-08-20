@@ -1,5 +1,18 @@
 # グーグルプレイスチャレンジ
-概要画像と動画
+【Home】
+<img width="1676" alt="スクリーンショット 2022-08-21 0 06 06" src="https://user-images.githubusercontent.com/90943612/185753820-858a5997-478f-403d-bbba-baf1de451c11.png">
+マップ上にピンをさし条件を入力して検索
+<img width="1678" alt="スクリーンショット 2022-08-21 0 07 33" src="https://user-images.githubusercontent.com/90943612/185753912-49ef14be-e9df-448f-ad77-91e2f3a418d3.png">
+ピン周辺の条件に合った検索結果が３つ表示される
+
+【Myplace】
+<img width="1678" alt="スクリーンショット 2022-08-21 0 09 27" src="https://user-images.githubusercontent.com/90943612/185753917-a4b8aa06-cbdf-487e-8765-d74c7442f107.png">
+評価・コメント・お気に入り登録ができる
+
+【Allplace】
+<img width="1672" alt="スクリーンショット 2022-08-21 0 10 30" src="https://user-images.githubusercontent.com/90943612/185753928-a5ec38a6-cf87-4aaf-b251-6881eac7181f.png">
+お気に入りした場所を共有できる
+
 ### サイト概要
 条件を指定してGoogleから周辺の場所３つ候補を提案してくれるアプリです。  
 口コミ等に流されずチャレンジ感覚でその場所に行ってみることができます。
@@ -39,10 +52,11 @@
 
 ### インフラ構成図
 ![名称未設定 drawio](https://user-images.githubusercontent.com/90943612/185370892-372ab1eb-db14-4d2d-a38f-53adba2b22cc.png)
-
 ### ER図
-### サイトマップ
+<img width="1156" alt="スクリーンショット 2022-08-20 23 55 09" src="https://user-images.githubusercontent.com/90943612/185752771-9cdd7c22-7979-4e7a-b5ff-99c963e24c2b.png">
 
+### サイトマップ
+![recomendedplace_app@1 7999999523162842x](https://user-images.githubusercontent.com/90943612/185751512-92f466d2-41cb-40c2-a8d2-1016c7a6d441.jpeg)
 ### 開発環境
 - OS：macOS Monteley
 - Docker / Docker-Compose
