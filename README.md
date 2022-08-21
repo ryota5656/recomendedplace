@@ -1,4 +1,10 @@
 # グーグルプレイスチャレンジ
+ゲストログイン
+
+user:guest@guest.com
+
+password:123456
+
 【Home】
 <img width="1676" alt="スクリーンショット 2022-08-21 0 06 06" src="https://user-images.githubusercontent.com/90943612/185753820-858a5997-478f-403d-bbba-baf1de451c11.png">
 マップ上にピンをさし条件を入力して検索
