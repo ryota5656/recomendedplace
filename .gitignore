@@ -29,3 +29,4 @@
 /.env
 
 /vendor/bundle
+/test.html.erb
