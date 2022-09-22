@@ -16,6 +16,10 @@ Rails.application.routes.draw do
     sessions: "users/sessions",
     registrations: "users/registrations",
   }
+  devise_scope :user do
+    post 'users/guest_sign_in', to: 'users/sessions#guest_sign_in'
+  end
+
   # マイページのルーティングにネスト
   resources :users, only: [:show, :edit, :update] do
     get :favorites, on: :collection
