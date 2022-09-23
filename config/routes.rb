@@ -17,14 +17,12 @@ Rails.application.routes.draw do
     registrations: "users/registrations",
   }
 
-
   # マイページのルーティングにネスト
   resources :users, only: [:show, :edit, :update] do
     get :favorites, on: :collection
   end
   # トップページをログイン画面に
   devise_scope :user do
-    root "users/sessions#new"
     post 'users/guest_sign_in', to: 'users/sessions#guest_sign_in'
   end
 
