@@ -27,8 +27,7 @@ Rails.application.routes.draw do
     root "users/sessions#new"
     post 'users/guest_sign_in', to: 'users/sessions#guest_sign_in'
   end
-  get '/users/sign_out' => 'devise/sessions#destroy'
-  get 'users/show'
+
 
   # my_places
   get "my_places/todo"
