@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   }
 
   # マイページのルーティングにネスト
-  resources :users, only: [:show, :edit, :update] do
+  resources :users do
     get :favorites, on: :collection
   end
   # トップページをログイン画面に
