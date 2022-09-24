@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   # root
   root :to => 'places#home'
+
   # place
   namespace :places do
     # get 'place/list' request
@@ -16,12 +17,11 @@ Rails.application.routes.draw do
     sessions: "users/sessions",
     registrations: "users/registrations",
   }
-
   # マイページのルーティングにネスト
   resources :users, only: [:show, :edit, :update] do
     get :favorites, on: :collection
   end
-  # トップページをログイン画面に
+  # ゲストログインの実装
   devise_scope :user do
     get 'users/sessions/guest_sign_in', to: 'users/sessions#guest_sign_in'
   end
