@@ -44,11 +44,8 @@
           <%= link_to  new_user_session_path, data: {"turbolinks" => false},class: 'btn' do%>
             <div><p class="m-0 switching-text d-flex align-items-center">Login</p></div>
           <% end %>
-          <%= link_to  users_guest_sign_in_path, data: {"turbolinks" => false},class: 'btn' do%>
-            <div><p class="m-0 mt-3 switching-text d-flex align-items-center">Guest Login</p></div>
-          <% end %>
+          <%= link_to 'Guest Login', users_sessions_guest_sign_in_path %>
         <% end %>
-
     </div>
   </div>
 </div>
